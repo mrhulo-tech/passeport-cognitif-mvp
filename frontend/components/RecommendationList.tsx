@@ -1,10 +1,24 @@
-export default function RecommendationList() {
+type Recommendation = {
+  user_id: number;
+  recommended_module: string;
+  priority: string;
+  rationale: string;
+};
+
+export default function RecommendationList({
+  recommendations,
+}: {
+  recommendations: Recommendation[];
+}) {
   return (
     <section>
       <h2>Recommandations</h2>
       <ul>
-        <li>Pratique orale guidée</li>
-        <li>Exercice de reformulation</li>
+        {recommendations.map((recommendation, index) => (
+          <li key={`${recommendation.recommended_module}-${index}`}>
+            {recommendation.recommended_module} — priorité {recommendation.priority}
+          </li>
+        ))}
       </ul>
     </section>
   );

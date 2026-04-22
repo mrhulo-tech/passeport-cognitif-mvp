@@ -1,33 +1,36 @@
-import DashboardHeader from "../components/DashboardHeader";
-import ProfileCard from "../components/ProfileCard";
-import IndicatorCard from "../components/IndicatorCard";
-import RecommendationList from "../components/RecommendationList";
-import ProgressTimeline from "../components/ProgressTimeline";
-import EvidenceList from "../components/EvidenceList";
-import LearningPathCard from "../components/LearningPathCard";
-import ConfidenceCard from "../components/ConfidenceCard";
-import EngagementCard from "../components/EngagementCard";
-import TaskResultTable from "../components/TaskResultTable";
-import SkillCard from "../components/SkillCard";
-import { fetchDashboard } from "../lib/api";
-import { DEFAULT_USER_ID } from "../lib/constants";
+"use client";
 
-export default async function HomePage() {
-  const dashboard = await fetchDashboard(DEFAULT_USER_ID);
+import { useEffect, useState } from "react";
+
+export default function Home() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch("https://passeport-cognitif-mvp.onrender.com/dashboard/1")
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, []);
+
+  if (!data) return <div>Chargement...</div>;
 
   return (
-    <main style={{ padding: "32px", fontFamily: "Arial, sans-serif" }}>
-      <DashboardHeader />
-      <ProfileCard profile={dashboard.profile} />
-      <IndicatorCard indicators={dashboard.indicators} />
-      <ConfidenceCard profile={dashboard.profile} />
-      <EngagementCard profile={dashboard.profile} />
-      <RecommendationList recommendations={dashboard.recommendations} />
-      <LearningPathCard recommendations={dashboard.recommendations} />
-      <SkillCard />
-      <TaskResultTable />
-      <EvidenceList />
-      <ProgressTimeline />
-    </main>
+    <div style={{ padding: 20 }}>
+      <h1>Passeport Cognitif</h1>
+
+      <h2>Profil</h2>
+      <p>Niveau actuel: {data.profile.current_level}</p>
+      <p>Objectif: {data.profile.target_level}</p>
+      <p>Progression: {data.profile.progress_score}%</p>
+      <p>Confiance: {data.profile.confidence_score}%</p>
+      <p>Engagement: {data.profile.engagement_score}%</p>
+
+      <h2>Recommandations</h2>
+      {data.recommendations.map((rec, i) => (
+        <div key={i}>
+          <p><strong>{rec.recommended_module}</strong></p>
+          <p>{rec.rationale}</p>
+        </div>
+      ))}
+    </div>
   );
 }

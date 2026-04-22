@@ -3,18 +3,18 @@
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any>(null);
 
   useEffect(() => {
     fetch("https://passeport-cognitif-mvp.onrender.com/dashboard/1")
       .then((res) => res.json())
-      .then((data) => setData(data));
+      .then((json) => setData(json));
   }, []);
 
-  if (!data) return <div>Chargement...</div>;
+  if (!data) return <p>Loading...</p>;
 
   return (
-    <div style={{ padding: 20 }}>
+    <div>
       <h1>Passeport Cognitif</h1>
 
       <h2>Profil</h2>
@@ -25,7 +25,7 @@ export default function Home() {
       <p>Engagement: {data.profile.engagement_score}%</p>
 
       <h2>Recommandations</h2>
-      {data.recommendations.map((rec, i) => (
+      {data.recommendations.map((rec: any, i: number) => (
         <div key={i}>
           <p><strong>{rec.recommended_module}</strong></p>
           <p>{rec.rationale}</p>

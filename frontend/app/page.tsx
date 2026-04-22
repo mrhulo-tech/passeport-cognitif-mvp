@@ -8,6 +8,7 @@ import LearningPathCard from "../components/LearningPathCard";
 import ConfidenceCard from "../components/ConfidenceCard";
 import EngagementCard from "../components/EngagementCard";
 import TaskResultTable from "../components/TaskResultTable";
+import SkillCard from "../components/SkillCard";
 import { fetchDashboard } from "../lib/api";
 import { DEFAULT_USER_ID } from "../lib/constants";
 
@@ -19,13 +20,14 @@ export default async function HomePage() {
       <DashboardHeader />
       <ProfileCard profile={dashboard.profile} />
       <IndicatorCard indicators={dashboard.indicators} />
-      <RecommendationList recommendations={dashboard.recommendations} />
-      <LearningPathCard recommendations={dashboard.recommendations} />
       <ConfidenceCard profile={dashboard.profile} />
       <EngagementCard profile={dashboard.profile} />
-      <ProgressTimeline />
-      <EvidenceList />
+      <RecommendationList recommendations={dashboard.recommendations} />
+      <LearningPathCard recommendations={dashboard.recommendations} />
+      <SkillCard />
       <TaskResultTable />
+      <EvidenceList />
+      <ProgressTimeline />
     </main>
   );
 }

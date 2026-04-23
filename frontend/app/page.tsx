@@ -21,10 +21,11 @@ type DashboardData = {
   }[];
 };
 
-async function getDashboard(): Promise<DashboardData> {
-  const res = await fetch("https://passeport-cognitif-mvp.onrender.com/dashboard/1", {
-    cache: "no-store",
-  });
+async function getDashboard(userId: string): Promise<DashboardData> {
+  const res = await fetch(
+    `https://passeport-cognitif-mvp.onrender.com/dashboard/${userId}`,
+    { cache: "no-store" }
+  );
 
   if (!res.ok) {
     throw new Error(`API error: ${res.status}`);
@@ -52,8 +53,14 @@ function translateRationale(value: string) {
   return value;
 }
 
-export default async function Home() {
-  const data = await getDashboard();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { user?: string };
+}) {
+  const userId = searchParams.user || "1";
+
+  const data = await getDashboard(userId);
 
   return (
     <div style={{ padding: 30, fontFamily: "Arial, sans-serif", maxWidth: 800 }}>
@@ -61,6 +68,8 @@ export default async function Home() {
       <p>Profil d’apprentissage dynamique basé sur les données</p>
 
       <hr />
+
+      <h2>Utilisateur : {userId}</h2>
 
       <h2>Profil d’apprentissage</h2>
       <p><strong>Niveau actuel :</strong> {data.profile.current_level}</p>

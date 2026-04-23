@@ -1,4 +1,3 @@
-
 import "./dashboard.css";
 import IndicatorList from "./components/IndicatorList";
 import MetricCard from "./components/MetricCard";
@@ -53,6 +52,13 @@ function translateInterpretation(value: string) {
   return value;
 }
 
+function translatePriority(value: string) {
+  if (value === "high") return "Priorité élevée";
+  if (value === "medium") return "Priorité moyenne";
+  if (value === "low") return "Priorité faible";
+  return value;
+}
+
 function translateRationale(value: string) {
   if (value === "expression_orale_below_target") {
     return "Votre expression orale est en dessous du niveau cible";
@@ -61,6 +67,20 @@ function translateRationale(value: string) {
     return "Votre compréhension orale est en dessous du niveau cible";
   }
   return value;
+}
+
+function getDemoSummary(userId: string) {
+  if (userId === "2") {
+    return {
+      title: "Synthèse démo",
+      text: "Ce profil montre un apprenant plus avancé, avec une progression plus stable et des recommandations de consolidation ciblées."
+    };
+  }
+
+  return {
+    title: "Synthèse démo",
+    text: "Ce profil montre un apprenant avec un besoin prioritaire en expression orale et un accompagnement pédagogique orienté progression observable."
+  };
 }
 
 export default async function Home({
@@ -119,6 +139,8 @@ export default async function Home({
       </div>
     );
   }
+
+  const demoSummary = getDemoSummary(userId);
 
   return (
     <div className="dashboard-page">
@@ -197,6 +219,12 @@ export default async function Home({
           />
         </div>
 
+        <div className="dashboard-card">
+          <p className="dashboard-section-label">Lecture rapide démo</p>
+          <h3 className="dashboard-subtitle">{demoSummary.title}</h3>
+          <p className="dashboard-switch-text">{demoSummary.text}</p>
+        </div>
+
         <div className="dashboard-grid-main">
           <div className="dashboard-card">
             <p className="dashboard-section-label">Indicateurs interprétables</p>
@@ -224,7 +252,7 @@ export default async function Home({
                 <RecommendationCard
                   key={i}
                   module={rec.recommended_module}
-                  priority={rec.priority}
+                  priority={translatePriority(rec.priority)}
                   rationale={translateRationale(rec.rationale)}
                 />
               ))}

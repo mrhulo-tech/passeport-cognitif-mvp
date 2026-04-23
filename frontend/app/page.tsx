@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 type DashboardData = {
   profile: {
     user_id: number;
@@ -21,60 +25,97 @@ type DashboardData = {
   }[];
 };
 
-async function getDashboard(userId: string): Promise<DashboardData> {
-  const res = await fetch(
-    `https://passeport-cognitif-mvp.onrender.com/dashboard/${userId}`,
-    { cache: "no-store" }
-  );
-
-  if (!res.ok) {
-    throw new Error("API error");
-  }
-
-  return res.json();
+function translateIndicator(name: string) {
+  if (name === "oral_expression") return "Expression orale";
+  if (name === "listening_comprehension") return "Compréhension orale";
+  return name;
 }
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: { user?: string };
-}) {
-  const userId = searchParams.user || "1"; // fallback
+function translateInterpretation(value: string) {
+  if (value === "to_improve") return "À améliorer";
+  if (value === "stable") return "Stable";
+  return value;
+}
 
-  let data: DashboardData;
+function translateRationale(value: string) {
+  if (value === "expression_orale_below_target") {
+    return "Votre expression orale est en dessous du niveau cible";
+  }
+  if (value === "listening_below_target") {
+    return "Votre compréhension orale est en dessous du niveau cible";
+  }
+  return value;
+}
 
-  try {
-    data = await getDashboard(userId);
-  } catch (error) {
-    return <div>Erreur API</div>;
+export default function Home() {
+  const [userId, setUserId] = useState("1");
+  const [data, setData] = useState<DashboardData | null>(null);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlUser = params.get("user") || "1";
+    setUserId(urlUser);
+
+    fetch(`https://passeport-cognitif-mvp.onrender.com/dashboard/${urlUser}`, {
+      cache: "no-store",
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`API error: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((json) => {
+        setData(json);
+      })
+      .catch((err) => {
+        setError(String(err));
+      });
+  }, []);
+
+  if (error) {
+    return <div style={{ padding: 30 }}>Erreur API : {error}</div>;
+  }
+
+  if (!data) {
+    return <div style={{ padding: 30 }}>Chargement...</div>;
   }
 
   return (
-    <div>
+    <div style={{ padding: 30, fontFamily: "Arial, sans-serif", maxWidth: 800 }}>
       <h1>Passeport Cognitif</h1>
+      <p>Profil d’apprentissage dynamique basé sur les données</p>
 
-      <p>Utilisateur : {userId}</p>
+      <hr />
 
-      <h2>Profil</h2>
-      <p>Niveau actuel : {data.profile.current_level}</p>
-      <p>Objectif : {data.profile.target_level}</p>
-      <p>Progression : {data.profile.progress_score}%</p>
-      <p>Confiance : {data.profile.confidence_score}%</p>
-      <p>Engagement : {data.profile.engagement_score}%</p>
+      <h2>Utilisateur : {userId}</h2>
+
+      <h2>Profil d’apprentissage</h2>
+      <p><strong>Niveau actuel :</strong> {data.profile.current_level}</p>
+      <p><strong>Objectif :</strong> {data.profile.target_level}</p>
+      <p><strong>Progression :</strong> {data.profile.progress_score}%</p>
+      <p><strong>Confiance :</strong> {data.profile.confidence_score}%</p>
+      <p><strong>Engagement :</strong> {data.profile.engagement_score}%</p>
+
+      <hr />
 
       <h2>Indicateurs</h2>
-      {data.indicators.map((ind, i) => (
+      {data.indicators.map((indicator, i) => (
         <p key={i}>
-          {ind.name} : {ind.value} ({ind.interpretation})
+          <strong>{translateIndicator(indicator.name)} :</strong>{" "}
+          {indicator.value} ({translateInterpretation(indicator.interpretation)})
         </p>
       ))}
 
-      <h2>Recommandations</h2>
+      <hr />
+
+      <h2>Recommandations personnalisées</h2>
       {data.recommendations.map((rec, i) => (
-        <div key={i}>
-          <p>{rec.recommended_module}</p>
-          <p>Priorité : {rec.priority}</p>
-          <p>Raison : {rec.rationale}</p>
+        <div key={i} style={{ marginBottom: 15 }}>
+          <p><strong>Module recommandé :</strong> {rec.recommended_module}</p>
+          <p><strong>Priorité :</strong> {rec.priority}</p>
+          <p><strong>Raison :</strong> {translateRationale(rec.rationale)}</p>
         </div>
       ))}
     </div>

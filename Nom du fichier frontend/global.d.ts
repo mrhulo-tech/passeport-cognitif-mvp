@@ -1,0 +1,2 @@
+Contenu
+declare module "*.css";

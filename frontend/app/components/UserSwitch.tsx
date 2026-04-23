@@ -1,4 +1,4 @@
-Contenu
+
 type UserSwitchProps = {
   activeUser: string;
 };

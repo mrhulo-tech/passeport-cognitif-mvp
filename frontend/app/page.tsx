@@ -1,7 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
 type DashboardData = {
   profile: {
     user_id: number;
@@ -25,31 +21,20 @@ type DashboardData = {
   }[];
 };
 
-export default function Home() {
-  const [data, setData] = useState<DashboardData | null>(null);
-  const [error, setError] = useState<string | null>(null);
+async function getDashboard(): Promise<DashboardData> {
+  const res = await fetch("https://passeport-cognitif-mvp.onrender.com/dashboard/1", {
+    cache: "no-store",
+  });
 
-  useEffect(() => {
-    fetch("https://passeport-cognitif-mvp.onrender.com/dashboard/1")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((json) => setData(json))
-      .catch((err) => {
-        setError(String(err));
-      });
-  }, []);
-
-  if (error) {
-    return <div style={{ padding: 20 }}>Erreur API : {error}</div>;
+  if (!res.ok) {
+    throw new Error(`API error: ${res.status}`);
   }
 
-  if (!data) {
-    return <div style={{ padding: 20 }}>Chargement...</div>;
-  }
+  return res.json();
+}
+
+export default async function Home() {
+  const data = await getDashboard();
 
   return (
     <div style={{ padding: 20, fontFamily: "Arial, sans-serif" }}>

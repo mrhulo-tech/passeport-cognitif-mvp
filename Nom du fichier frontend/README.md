@@ -1,27 +1,37 @@
-Contenu
-# Frontend — Passeport Cognitif MVP
+# Frontend - Passeport Cognitif MVP
 
 ## Stack
 - Next.js 14
 - React 18
 - server-side fetch vers le backend Render
 
-## Principe d’architecture
-Le frontend consomme le backend en server-side fetch afin d’éviter les problèmes de CORS côté navigateur. La logique multi-utilisateur est pilotée par le query parameter `user`.
+## Architecture
+Le frontend charge le dashboard côté serveur et consomme le backend Render.
 
-## URLs de test
+Backend utilisé :
+https://passeport-cognitif-mvp.onrender.com
+
+## URLs de démonstration
 - `/?user=1`
 - `/?user=2`
 
-## Structure UI actuelle
-- `app/page.tsx` : page principale dashboard
-- `app/dashboard.css` : styles dédiés dashboard
-- `app/components/MetricCard.tsx`
-- `app/components/UserSwitch.tsx`
-- `app/components/RecommendationCard.tsx`
+## Structure utile
+- `app/page.tsx`
+- `app/layout.tsx`
+- `app/globals.css`
+- `app/dashboard.css`
 - `app/components/IndicatorList.tsx`
+- `app/components/MetricCard.tsx`
+- `app/components/RecommendationCard.tsx`
+- `app/components/UserSwitch.tsx`
 
-## Lancer localement
+## Règles de stabilité
+- ne pas revenir à `use client` pour le dashboard principal
+- ne pas utiliser `useEffect` + fetch navigateur pour charger le dashboard
+- conserver le fetch server-side
+- préserver la logique multi-user par query param
+
+## Build
 ```bash
 npm install
-npm run dev
+npm run build

@@ -1,4 +1,4 @@
-Contenu
+
 import "./dashboard.css";
 import IndicatorList from "./components/IndicatorList";
 import MetricCard from "./components/MetricCard";

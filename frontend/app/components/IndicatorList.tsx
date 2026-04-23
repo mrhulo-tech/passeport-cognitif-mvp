@@ -1,4 +1,3 @@
-Contenu
 type Indicator = {
   name: string;
   value: number;

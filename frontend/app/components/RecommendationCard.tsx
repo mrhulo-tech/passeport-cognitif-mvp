@@ -1,4 +1,4 @@
-Contenu
+
 type RecommendationCardProps = {
   module: string;
   priority: string;

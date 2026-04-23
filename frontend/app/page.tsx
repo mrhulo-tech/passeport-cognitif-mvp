@@ -1,7 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
 type DashboardData = {
   profile: {
     user_id: number;
@@ -25,40 +21,31 @@ type DashboardData = {
   }[];
 };
 
-export default function Home() {
-  const [userId, setUserId] = useState(1);
-  const [data, setData] = useState<DashboardData | null>(null);
-  const [error, setError] = useState("");
+async function getDashboard(userId: string): Promise<DashboardData> {
+  const res = await fetch(
+    `https://passeport-cognitif-mvp.onrender.com/dashboard/${userId}`,
+    { cache: "no-store" }
+  );
 
-  useEffect(() => {
-    fetch(`https://passeport-cognitif-mvp.onrender.com/dashboard/${userId}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("API error");
-        return res.json();
-      })
-      .then(setData)
-      .catch((err) => setError(err.message));
-  }, [userId]);
+  if (!res.ok) {
+    throw new Error("Erreur API");
+  }
 
-  if (error) return <p>Erreur API : {error}</p>;
-  if (!data) return <p>Loading...</p>;
+  return res.json();
+}
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { user?: string };
+}) {
+  const userId = searchParams.user || "1";
+  const data = await getDashboard(userId);
 
   return (
     <div style={{ padding: "20px" }}>
       <h1>Passeport Cognitif</h1>
       <p>Profil d’apprentissage dynamique basé sur les données</p>
-
-      {/* 🔥 NOUVEAU : SELECTEUR */}
-      <label>
-        Choisir utilisateur :
-        <select
-          value={userId}
-          onChange={(e) => setUserId(Number(e.target.value))}
-        >
-          <option value={1}>Utilisateur 1</option>
-          <option value={2}>Utilisateur 2</option>
-        </select>
-      </label>
 
       <hr />
 

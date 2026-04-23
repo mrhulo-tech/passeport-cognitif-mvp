@@ -28,29 +28,10 @@ async function getDashboard(userId: string): Promise<DashboardData> {
   );
 
   if (!res.ok) {
-    throw new Error(`API error: ${res.status}`);
+    throw new Error("API error");
   }
 
   return res.json();
-}
-
-function translateIndicator(name: string) {
-  if (name === "oral_expression") return "Expression orale";
-  if (name === "listening_comprehension") return "Compréhension orale";
-  return name;
-}
-
-function translateInterpretation(value: string) {
-  if (value === "to_improve") return "À améliorer";
-  if (value === "stable") return "Stable";
-  return value;
-}
-
-function translateRationale(value: string) {
-  if (value === "expression_orale_below_target") {
-    return "Votre expression orale est en dessous du niveau cible";
-  }
-  return value;
 }
 
 export default async function Home({
@@ -58,44 +39,42 @@ export default async function Home({
 }: {
   searchParams: { user?: string };
 }) {
-  const userId = searchParams.user || "1";
+  const userId = searchParams.user || "1"; // fallback
 
-  const data = await getDashboard(userId);
+  let data: DashboardData;
+
+  try {
+    data = await getDashboard(userId);
+  } catch (error) {
+    return <div>Erreur API</div>;
+  }
 
   return (
-    <div style={{ padding: 30, fontFamily: "Arial, sans-serif", maxWidth: 800 }}>
+    <div>
       <h1>Passeport Cognitif</h1>
-      <p>Profil d’apprentissage dynamique basé sur les données</p>
 
-      <hr />
+      <p>Utilisateur : {userId}</p>
 
-      <h2>Utilisateur : {userId}</h2>
-
-      <h2>Profil d’apprentissage</h2>
-      <p><strong>Niveau actuel :</strong> {data.profile.current_level}</p>
-      <p><strong>Objectif :</strong> {data.profile.target_level}</p>
-      <p><strong>Progression :</strong> {data.profile.progress_score}%</p>
-      <p><strong>Confiance :</strong> {data.profile.confidence_score}%</p>
-      <p><strong>Engagement :</strong> {data.profile.engagement_score}%</p>
-
-      <hr />
+      <h2>Profil</h2>
+      <p>Niveau actuel : {data.profile.current_level}</p>
+      <p>Objectif : {data.profile.target_level}</p>
+      <p>Progression : {data.profile.progress_score}%</p>
+      <p>Confiance : {data.profile.confidence_score}%</p>
+      <p>Engagement : {data.profile.engagement_score}%</p>
 
       <h2>Indicateurs</h2>
-      {data.indicators.map((indicator, i) => (
+      {data.indicators.map((ind, i) => (
         <p key={i}>
-          <strong>{translateIndicator(indicator.name)} :</strong>{" "}
-          {indicator.value} ({translateInterpretation(indicator.interpretation)})
+          {ind.name} : {ind.value} ({ind.interpretation})
         </p>
       ))}
 
-      <hr />
-
-      <h2>Recommandations personnalisées</h2>
+      <h2>Recommandations</h2>
       {data.recommendations.map((rec, i) => (
-        <div key={i} style={{ marginBottom: 15 }}>
-          <p><strong>Module recommandé :</strong> {rec.recommended_module}</p>
-          <p><strong>Priorité :</strong> {rec.priority}</p>
-          <p><strong>Raison :</strong> {translateRationale(rec.rationale)}</p>
+        <div key={i}>
+          <p>{rec.recommended_module}</p>
+          <p>Priorité : {rec.priority}</p>
+          <p>Raison : {rec.rationale}</p>
         </div>
       ))}
     </div>

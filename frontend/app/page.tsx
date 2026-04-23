@@ -1,5 +1,8 @@
 Contenu
 import "./dashboard.css";
+import MetricCard from "./components/MetricCard";
+import RecommendationCard from "./components/RecommendationCard";
+import UserSwitch from "./components/UserSwitch";
 
 type DashboardData = {
   profile: {
@@ -73,25 +76,6 @@ function progressBar(value: number, color: string) {
   );
 }
 
-function UserLink({
-  href,
-  active,
-  label,
-}: {
-  href: string;
-  active: boolean;
-  label: string;
-}) {
-  return (
-    <a
-      href={href}
-      className={`dashboard-user-link${active ? " active" : ""}`}
-    >
-      {label}
-    </a>
-  );
-}
-
 export default async function Home({
   searchParams,
 }: {
@@ -141,16 +125,7 @@ export default async function Home({
             <div className="dashboard-error-box">{errorMessage}</div>
 
             <div className="dashboard-error-links">
-              <UserLink
-                href="/?user=1"
-                active={userId === "1"}
-                label="Utilisateur 1"
-              />
-              <UserLink
-                href="/?user=2"
-                active={userId === "2"}
-                label="Utilisateur 2"
-              />
+              <UserSwitch activeUser={userId} />
             </div>
           </div>
         </div>
@@ -213,45 +188,26 @@ export default async function Home({
             <p className="dashboard-switch-text">
               Compare les profils avec les URLs server-side existantes.
             </p>
-            <div className="dashboard-switch-grid">
-              <UserLink
-                href="/?user=1"
-                active={userId === "1"}
-                label="Utilisateur 1"
-              />
-              <UserLink
-                href="/?user=2"
-                active={userId === "2"}
-                label="Utilisateur 2"
-              />
-            </div>
+            <UserSwitch activeUser={userId} />
           </div>
         </div>
 
         <div className="dashboard-grid-metrics">
-          <div className="dashboard-card dashboard-metric-card">
-            <p className="dashboard-metric-label">Progression</p>
-            <h3 className="dashboard-metric-value">
-              {data.profile.progress_score}%
-            </h3>
-            {progressBar(data.profile.progress_score, "#2563eb")}
-          </div>
-
-          <div className="dashboard-card dashboard-metric-card">
-            <p className="dashboard-metric-label">Confiance</p>
-            <h3 className="dashboard-metric-value">
-              {data.profile.confidence_score}%
-            </h3>
-            {progressBar(data.profile.confidence_score, "#16a34a")}
-          </div>
-
-          <div className="dashboard-card dashboard-metric-card">
-            <p className="dashboard-metric-label">Engagement</p>
-            <h3 className="dashboard-metric-value">
-              {data.profile.engagement_score}%
-            </h3>
-            {progressBar(data.profile.engagement_score, "#f59e0b")}
-          </div>
+          <MetricCard
+            label="Progression"
+            value={data.profile.progress_score}
+            color="#2563eb"
+          />
+          <MetricCard
+            label="Confiance"
+            value={data.profile.confidence_score}
+            color="#16a34a"
+          />
+          <MetricCard
+            label="Engagement"
+            value={data.profile.engagement_score}
+            color="#f59e0b"
+          />
         </div>
 
         <div className="dashboard-grid-main">
@@ -296,17 +252,12 @@ export default async function Home({
 
             <div className="dashboard-recommendations">
               {data.recommendations.map((rec, i) => (
-                <div key={i} className="dashboard-recommendation-card">
-                  <p className="dashboard-recommendation-title">
-                    {rec.recommended_module}
-                  </p>
-                  <p className="dashboard-recommendation-priority">
-                    <strong>Priorité :</strong> {rec.priority}
-                  </p>
-                  <p className="dashboard-recommendation-text">
-                    {translateRationale(rec.rationale)}
-                  </p>
-                </div>
+                <RecommendationCard
+                  key={i}
+                  module={rec.recommended_module}
+                  priority={rec.priority}
+                  rationale={translateRationale(rec.rationale)}
+                />
               ))}
             </div>
           </div>

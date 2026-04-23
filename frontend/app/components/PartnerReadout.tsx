@@ -2,7 +2,7 @@ const readouts = [
   {
     title: "Valeur pour un partenaire formation",
     description:
-      "Visualiser rapidement comment les données du parcours se transforment en décisions pédagogiques concrètes.",
+      "Visualiser rapidement comment les données du parcours linguistique se transforment en décisions pédagogiques concrètes.",
   },
   {
     title: "Valeur pour une équipe produit",
@@ -10,9 +10,9 @@ const readouts = [
       "Montrer une chaîne fonctionnelle simple entre collecte, interprétation et recommandation dans le LMS.",
   },
   {
-    title: "Valeur pour une démo",
+    title: "Valeur pour un contexte fédéral",
     description:
-      "Rendre le MVP plus explicite sans ajouter de complexité technique ni casser l’architecture existante.",
+      "Présenter un outil de progression compréhensible, prudent et utile pour des parcours liés à la communication professionnelle.",
   },
 ];
 

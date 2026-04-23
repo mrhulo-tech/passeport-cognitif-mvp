@@ -1,7 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
 type DashboardData = {
   profile: {
     user_id: number;
@@ -25,6 +21,19 @@ type DashboardData = {
   }[];
 };
 
+async function getDashboard(userId: string): Promise<DashboardData> {
+  const res = await fetch(
+    `https://passeport-cognitif-mvp.onrender.com/dashboard/${userId}`,
+    { cache: "no-store" }
+  );
+
+  if (!res.ok) {
+    throw new Error(`API error: ${res.status}`);
+  }
+
+  return res.json();
+}
+
 function translateIndicator(name: string) {
   if (name === "oral_expression") return "Expression orale";
   if (name === "listening_comprehension") return "Compréhension orale";
@@ -47,40 +56,13 @@ function translateRationale(value: string) {
   return value;
 }
 
-export default function Home() {
-  const [userId, setUserId] = useState("1");
-  const [data, setData] = useState<DashboardData | null>(null);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const urlUser = params.get("user") || "1";
-    setUserId(urlUser);
-
-    fetch(`https://passeport-cognitif-mvp.onrender.com/dashboard/${urlUser}`, {
-      cache: "no-store",
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`API error: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((json) => {
-        setData(json);
-      })
-      .catch((err) => {
-        setError(String(err));
-      });
-  }, []);
-
-  if (error) {
-    return <div style={{ padding: 30 }}>Erreur API : {error}</div>;
-  }
-
-  if (!data) {
-    return <div style={{ padding: 30 }}>Chargement...</div>;
-  }
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: { user?: string };
+}) {
+  const userId = searchParams?.user || "1";
+  const data = await getDashboard(userId);
 
   return (
     <div style={{ padding: 30, fontFamily: "Arial, sans-serif", maxWidth: 800 }}>

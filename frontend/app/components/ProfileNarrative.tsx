@@ -16,13 +16,17 @@ export default function ProfileNarrative({
       <p>
         <strong>{name}</strong> présente actuellement un profil de niveau{" "}
         <strong>{level}</strong>, orienté vers <strong>{targetRole}</strong>.
-        Le tableau de bord ne produit pas une mesure fixe de capacité, mais une
-        lecture évolutive de la progression à partir de données observables.
       </p>
       <p>
-        Cette lecture sert à prioriser les prochaines actions pédagogiques,
-        soutenir les décisions d’accompagnement et rendre la progression plus
-        visible pour l’apprenant comme pour l’équipe.
+        Dans le cadre de la formation linguistique professionnelle, cette vue
+        sert à documenter une progression observable, à prioriser les besoins
+        d’accompagnement et à recommander les prochaines actions utiles dans le
+        parcours.
+      </p>
+      <p>
+        Le système ne produit pas une mesure fixe de capacité. Il propose une
+        lecture évolutive du parcours à partir de données pédagogiques
+        interprétables.
       </p>
     </section>
   );

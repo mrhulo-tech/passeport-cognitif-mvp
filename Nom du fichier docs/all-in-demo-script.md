@@ -1,76 +1,102 @@
-Contenu
-# Script de démo — ALL IN Montréal
+# ALL IN Demo Script - Passeport Cognitif MVP
 
-## Objectif de la démo
-Montrer un MVP crédible, utile et démontrable du Passeport Cognitif, sans prétendre mesurer objectivement l’intelligence. Le système présente un profil d’apprentissage dynamique fondé sur des données observables, des indicateurs interprétables et des recommandations pédagogiques personnalisées.
+## 1. Opening
+Le Passeport Cognitif est un module LMS qui agrège des données d’apprentissage pour produire un profil apprenant dynamique, interprétable et utile à la personnalisation pédagogique.
 
-## Message d’ouverture
-Le Passeport Cognitif est un module LMS qui agrège des données pédagogiques afin de produire un profil apprenant utile à la personnalisation des parcours, au suivi de progression et à la recommandation d’activités. Le MVP présenté aujourd’hui ne repose pas sur un scoring opaque ni sur des inférences déterministes. Il met l’accent sur la transparence, la lisibilité et la valeur démontrable.
+Ce MVP ne prétend pas mesurer l’intelligence.  
+Il met plutôt en valeur :
+- des données observables
+- des indicateurs compréhensibles
+- des recommandations pédagogiques personnalisées
+- une progression claire pour l’apprenant et l’organisation
 
-## Déroulé recommandé
+---
 
-### 1. Introduction
-Ouvrir la page principale du frontend déployé sur Vercel.
+## 2. Demo Goal
+Montrer comment un LMS peut :
+- consolider des signaux d’apprentissage
+- produire un profil lisible
+- identifier des axes d’amélioration
+- recommander des actions concrètes
+- comparer plusieurs profils utilisateurs dans une logique de progression
 
-Message à dire :
-Voici le dashboard MVP du Passeport Cognitif. Il s’agit d’un profil apprenant dynamique intégré à notre environnement LMS.
+---
 
-### 2. Présenter la logique du profil
-Montrer la section “Profil apprenant”.
+## 3. Demo Flow
 
-Message à dire :
-Le profil affiché repose sur des données observables. Nous distinguons clairement trois niveaux : les données, leur interprétation pédagogique, puis les recommandations proposées.
-
-### 3. Montrer les indicateurs globaux
-Montrer les cartes :
-- Progression
-- Confiance
-- Engagement
-
-Message à dire :
-Ces indicateurs sont lisibles et interprétables. Ils ne prétendent pas représenter une intelligence générale. Ils servent à guider l’accompagnement pédagogique.
-
-### 4. Montrer les indicateurs détaillés
-Montrer la section “Forces et axes d’amélioration”.
-
-Message à dire :
-Ici, le système met en évidence les domaines où l’apprenant progresse bien et ceux qui nécessitent un soutien supplémentaire.
-
-### 5. Montrer les recommandations
-Montrer la section “Prochaines actions proposées”.
-
-Message à dire :
-À partir du profil actuel, le système recommande des modules ciblés. L’objectif est de personnaliser le parcours de manière simple, explicable et directement exploitable.
-
-### 6. Démontrer la variation entre utilisateurs
-Passer de `?user=1` à `?user=2`.
-
-Message à dire :
-La valeur du MVP apparaît ici : deux utilisateurs différents produisent deux profils différents et donc deux ensembles de recommandations distincts.
-
-### 7. Conclusion
-Message à dire :
-Ce MVP montre qu’il est possible d’intégrer dans un LMS un profil apprenant dynamique, lisible et utile à la personnalisation, sans tomber dans des promesses pseudo-scientifiques.
-
-## Points clés à marteler
-- profil d’apprentissage, pas mesure de l’intelligence
+### Step 1 - Hero section
+Présenter la proposition de valeur :
+- profil d’apprentissage dynamique
 - données observables
 - indicateurs interprétables
-- recommandations pédagogiques personnalisées
-- variation visible entre utilisateurs
-- intégration LMS
-- valeur démontrable immédiate
+- recommandations personnalisées
+- aucune inférence opaque
 
-## URLs de démonstration
-- Frontend Vercel : vérifier le domaine actif du projet
-- Utilisateur 1 : `/?user=1`
-- Utilisateur 2 : `/?user=2`
-- Backend Render :
-  - `/dashboard/1`
-  - `/dashboard/2`
+### Step 2 - Learner profile
+Montrer :
+- le domaine
+- le niveau actuel
+- l’objectif
+- le statut du profil
 
-## Plan B en cas de problème
-Si le backend répond lentement ou échoue temporairement :
-- montrer l’écran d’erreur frontend
-- expliquer que l’architecture reste server-side
-- rappeler que la logique multi-user et les routes backend sont déjà en place
+Message clé :
+le système présente un état d’apprentissage utile à la décision pédagogique.
+
+### Step 3 - High-level metrics
+Montrer :
+- progression
+- confiance
+- engagement
+
+Message clé :
+ce sont des indicateurs de suivi, pas des vérités absolues.
+Ils servent à orienter l’accompagnement.
+
+### Step 4 - Interpretable indicators
+Montrer les forces et axes d’amélioration.
+
+Message clé :
+on reste dans une logique explicable :
+- ce qui va bien
+- ce qui doit être renforcé
+- pourquoi cela compte dans le parcours
+
+### Step 5 - Personalized recommendations
+Montrer les recommandations proposées.
+
+Message clé :
+le MVP ne s’arrête pas à constater.
+Il suggère une prochaine action pédagogique concrète.
+
+### Step 6 - User switching
+Passer de l’utilisateur 1 à l’utilisateur 2.
+
+Message clé :
+la plateforme adapte la lecture du profil selon les données disponibles et le besoin de progression.
+
+---
+
+## 4. Suggested Talking Points
+- Nous remplaçons une lecture statique par une lecture dynamique de la progression.
+- Nous privilégions la transparence plutôt que le scoring opaque.
+- Nous relions les indicateurs à des actions pédagogiques concrètes.
+- Nous intégrons cela directement dans le LMS pour que la donnée devienne utile en contexte.
+- Le MVP est démontrable dès maintenant et extensible à d’autres cas d’usage.
+
+---
+
+## 5. Ethical Positioning
+Le Passeport Cognitif est présenté comme :
+- un profil apprenant dynamique
+- un outil d’aide à la personnalisation
+- un système d’interprétation pédagogique
+
+Il n’est pas présenté comme :
+- une mesure objective de l’intelligence
+- un diagnostic psychométrique lourd
+- un système de classement déterministe
+
+---
+
+## 6. Closing
+Le MVP montre qu’il est possible d’intégrer dans un LMS un profil d’apprentissage utile, lisible et actionnable, en combinant données pédagogiques, visualisation claire et recommandations personnalisées.

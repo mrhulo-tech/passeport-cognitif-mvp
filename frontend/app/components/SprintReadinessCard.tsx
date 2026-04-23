@@ -1,7 +1,8 @@
 const readinessItems = [
   "Structure produit déjà démontrable",
   "Différenciation multi-utilisateur active",
-  "Narratif de progression désormais plus explicite",
+  "Narratif de progression plus explicite",
+  "Base exploitable pour les premiers sprints de cadrage et d’itération",
 ];
 
 export default function SprintReadinessCard() {

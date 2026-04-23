@@ -1,5 +1,6 @@
 Contenu
 import "./dashboard.css";
+import IndicatorList from "./components/IndicatorList";
 import MetricCard from "./components/MetricCard";
 import RecommendationCard from "./components/RecommendationCard";
 import UserSwitch from "./components/UserSwitch";
@@ -60,20 +61,6 @@ function translateRationale(value: string) {
     return "Votre compréhension orale est en dessous du niveau cible";
   }
   return value;
-}
-
-function progressBar(value: number, color: string) {
-  return (
-    <div className="dashboard-progress">
-      <div
-        className="dashboard-progress-fill"
-        style={{
-          width: `${value}%`,
-          background: color,
-        }}
-      />
-    </div>
-  );
 }
 
 export default async function Home({
@@ -217,29 +204,11 @@ export default async function Home({
               Forces et axes d’amélioration
             </h3>
 
-            <div className="dashboard-list">
-              {data.indicators.map((indicator, i) => (
-                <div key={i}>
-                  <div className="dashboard-indicator-head">
-                    <strong className="dashboard-indicator-label">
-                      {translateIndicator(indicator.name)}
-                    </strong>
-                    <span className="dashboard-indicator-value">
-                      {indicator.value}%
-                    </span>
-                  </div>
-                  {progressBar(
-                    indicator.value,
-                    indicator.interpretation === "to_improve"
-                      ? "#ef4444"
-                      : "#2563eb"
-                  )}
-                  <p className="dashboard-indicator-note">
-                    {translateInterpretation(indicator.interpretation)}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <IndicatorList
+              indicators={data.indicators}
+              translateIndicator={translateIndicator}
+              translateInterpretation={translateInterpretation}
+            />
           </div>
 
           <div className="dashboard-card">

@@ -3,6 +3,7 @@ const items = [
   "Les indicateurs restent lisibles et interprétables",
   "Les recommandations découlent d’une logique explicite",
   "Le positionnement éthique du MVP est visible dans l’interface",
+  "Le cas d’usage langue seconde en contexte professionnel est compréhensible",
 ];
 
 export default function DemoChecklist() {

@@ -1,6 +1,5 @@
-Contenu
 :root {
-  --bg: #f3f6fb;
+  --bg: #eef3f9;
   --card: #ffffff;
   --line: #d9e2ec;
   --text: #0f172a;
@@ -65,7 +64,6 @@ a {
   margin: 0 0 12px;
   font-size: 14px;
   letter-spacing: 0.04em;
-  text-transform: none;
   opacity: 0.9;
 }
 

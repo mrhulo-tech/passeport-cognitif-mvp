@@ -1,10 +1,31 @@
-html, body {
+Contenu
+html,
+body {
   margin: 0;
   padding: 0;
   background: #f8fafc;
   color: #0f172a;
 }
 
+body {
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+}
+
 * {
   box-sizing: border-box;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
 }

@@ -4,6 +4,23 @@ import MetricCard from "./components/MetricCard";
 import RecommendationCard from "./components/RecommendationCard";
 import UserSwitch from "./components/UserSwitch";
 import WorkflowExplainer from "./components/WorkflowExplainer";
+import DataBoundaryNote from "./components/DataBoundaryNote";
+import UseCaseBanner from "./components/UseCaseBanner";
+import ProfileNarrative from "./components/ProfileNarrative";
+import IndicatorInterpretationPanel from "./components/IndicatorInterpretationPanel";
+import RecommendationPriority from "./components/RecommendationPriority";
+import MetricLegend from "./components/MetricLegend";
+import DemoChecklist from "./components/DemoChecklist";
+import PartnerReadout from "./components/PartnerReadout";
+import NextStepPanel from "./components/NextStepPanel";
+import TechnicalScopeNote from "./components/TechnicalScopeNote";
+import ArchitectureHint from "./components/ArchitectureHint";
+import DeliveryNote from "./components/DeliveryNote";
+import SprintReadinessCard from "./components/SprintReadinessCard";
+import ProductValueCard from "./components/ProductValueCard";
+import StakeholderPanel from "./components/StakeholderPanel";
+import TimelinePreview from "./components/TimelinePreview";
+import ActionBridge from "./components/ActionBridge";
 
 type DashboardData = {
   user_id: number;
@@ -59,7 +76,9 @@ export default async function Home({
         </div>
       </section>
 
+      <UseCaseBanner targetRole={data.target_role} />
       <WorkflowExplainer userId={userId} />
+      <DataBoundaryNote />
 
       <section className="profile-summary-card">
         <div className="profile-summary-card__header">
@@ -82,6 +101,12 @@ export default async function Home({
         </div>
       </section>
 
+      <ProfileNarrative
+        name={data.name}
+        level={data.level}
+        targetRole={data.target_role}
+      />
+
       <section className="metrics-grid">
         <MetricCard
           label="Progression"
@@ -100,6 +125,11 @@ export default async function Home({
         />
       </section>
 
+      <MetricLegend />
+      <TechnicalScopeNote />
+      <ArchitectureHint />
+      <DeliveryNote />
+
       <section className="content-grid">
         <div className="content-card">
           <p className="section-label">Indicateurs clés</p>
@@ -113,6 +143,30 @@ export default async function Home({
           <RecommendationCard recommendations={data.recommendations} />
         </div>
       </section>
+
+      <ActionBridge />
+
+      <section className="content-grid">
+        <IndicatorInterpretationPanel indicators={data.indicators} />
+        <RecommendationPriority recommendations={data.recommendations} />
+      </section>
+
+      <section className="content-grid">
+        <TimelinePreview />
+        <ProductValueCard />
+      </section>
+
+      <section className="content-grid">
+        <PartnerReadout />
+        <StakeholderPanel />
+      </section>
+
+      <section className="content-grid">
+        <DemoChecklist />
+        <SprintReadinessCard />
+      </section>
+
+      <NextStepPanel />
     </main>
   );
 }

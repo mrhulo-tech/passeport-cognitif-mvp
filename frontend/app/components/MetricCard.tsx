@@ -1,4 +1,4 @@
-Contenu
+
 type MetricCardProps = {
   label: string;
   value: number;

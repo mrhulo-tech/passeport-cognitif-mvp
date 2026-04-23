@@ -1,6 +1,7 @@
 const stakeholderItems = [
   "Équipe de développement",
-  "Partenaires de formation",
+  "Équipe pédagogique et direction académique",
+  "Partenaires institutionnels ou employeurs",
   "Décideurs intéressés par la personnalisation des parcours",
 ];
 

@@ -215,7 +215,7 @@ a {
 
 .dashboard-list {
   display: grid;
-  gap: 18px;
+  gap: 22px;
 }
 
 .dashboard-indicator-head {
@@ -245,27 +245,35 @@ a {
 
 .dashboard-recommendations {
   display: grid;
-  gap: 14px;
+  gap: 16px;
 }
 
 .dashboard-recommendation-card {
   border: 1px solid #e4ebf3;
-  border-radius: 16px;
+  border-radius: 18px;
   background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-  padding: 16px 16px 15px;
+  padding: 18px 18px 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
 }
 
 .dashboard-recommendation-title {
   margin: 0 0 10px;
   color: #10203a;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 800;
 }
 
 .dashboard-recommendation-priority {
-  margin: 0 0 8px;
-  color: #30455f;
-  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #9a3412;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .dashboard-recommendation-text {

@@ -2,12 +2,12 @@ const metricDefinitions = [
   {
     label: "Progression",
     description:
-      "Mesure l’avancement observable dans le parcours et la réalisation des activités attendues.",
+      "Mesure l’avancement observable dans le parcours linguistique et la réalisation des activités attendues.",
   },
   {
     label: "Confiance",
     description:
-      "Reflète la stabilité perçue sur les tâches réalisées et la capacité à mobiliser les acquis.",
+      "Reflète la stabilité perçue sur les tâches de communication réalisées et la mobilisation des acquis.",
   },
   {
     label: "Engagement",
